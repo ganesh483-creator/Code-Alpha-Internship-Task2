@@ -1,0 +1,58 @@
+const tracks = [
+    {
+        title: "macha macha - Thaman",
+        src: "music player/track2.mp3"
+    },
+    {
+        title: "hey minnale - Amaran",
+        src: "music player/track3.mp3"
+    },
+    {
+        title: "ni singam dha - Unknown",
+        src: "music player/track1.mp3"
+    },
+    {
+    title: "blue-english",
+    src: "music player/track4.mp3"
+    }
+];
+
+let currentTrackIndex = 0;
+const audio = document.getElementById('audio');
+const trackTitle = document.getElementById('track-title');
+
+function selectTrack(index) {
+    currentTrackIndex = index;
+    audio.src = tracks[index].src;
+    trackTitle.textContent = tracks[index].title;
+    audio.play();
+    updatePlayButton();
+}
+
+function togglePlay() {
+    if (audio.paused) {
+        audio.play();
+    } else {
+        audio.pause();
+    }
+    updatePlayButton();
+}
+
+function updatePlayButton() {
+    const playButton = document.getElementById('play');
+    if (audio.paused) {
+        playButton.innerHTML = '&#9654;'; // Play symbol
+    } else {
+        playButton.innerHTML = '&#10074;&#10074;'; // Pause symbol
+    }
+}
+
+function nextSong() {
+    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    selectTrack(currentTrackIndex);
+}
+
+function prevSong() {
+    currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+    selectTrack(currentTrackIndex);
+}
